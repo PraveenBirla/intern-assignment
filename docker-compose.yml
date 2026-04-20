@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: assignment
+    environment:
+      POSTGRES_DB:        assignment_db
+      POSTGRES_USER:      praveen
+      POSTGRES_PASSWORD:  praveen
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U praveen -d assignment_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+
+volumes:
+  postgres_data:
