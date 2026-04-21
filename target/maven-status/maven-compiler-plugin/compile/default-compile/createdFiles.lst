@@ -29,5 +29,6 @@ com\grid07\api\dto\CreatePostRequestDTO.class
 com\grid07\api\entity\Bot$BotBuilder.class
 com\grid07\api\entity\Post.class
 com\grid07\api\repository\BotRepository.class
+com\grid07\api\service\GuardrailService.class
 com\grid07\api\repository\PostLikeRepository.class
 com\grid07\api\repository\PostRepository.class

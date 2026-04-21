@@ -14,11 +14,13 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final ViralityService viralityService;
+    private final GuardrailService guardrailService;
 
-    public CommentService(PostRepository postRepository, CommentRepository commentRepository, ViralityService viralityService) {
+    public CommentService(PostRepository postRepository, CommentRepository commentRepository, ViralityService viralityService, GuardrailService guardrailService) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.viralityService = viralityService;
+        this.guardrailService = guardrailService;
     }
 
     public CommentResponseDTO addComment(Long postId, CommentRequestDTO dto) {
@@ -26,9 +28,26 @@ public class CommentService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        if (dto.getDepthLevel() > 20) {
-            throw new RuntimeException("Depth limit exceeded");
+        guardrailService.validateDepth(dto.getDepthLevel());
+
+        boolean isBot = dto.getAuthorType() == Post.AuthorType.BOT;
+
+        if (isBot) {
+
+
+            if (!guardrailService.checkBotLimit(postId)) {
+                throw new RuntimeException("Bot limit exceeded (429)");
+            }
+
+
+            Long botId = dto.getAuthorId();
+            Long userId = post.getAuthorId();
+
+            if (!guardrailService.checkCooldown(botId, userId)) {
+                throw new RuntimeException("Cooldown active (429)");
+            }
         }
+
 
         Comment comment = Comment.builder()
                 .post(post)

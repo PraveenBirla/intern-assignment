@@ -35,12 +35,15 @@ public class PostController {
     }
 
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<CommentResponseDTO> addComment(
+    public ResponseEntity<?> addComment(
             @PathVariable Long postId,
-            @RequestBody CommentRequestDTO dto ) {
+            @RequestBody CommentRequestDTO dto) {
 
-
-        return  ResponseEntity.ok(commentService.addComment(postId,dto));
+        try {
+            return ResponseEntity.ok(commentService.addComment(postId, dto));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/{postId}/like")

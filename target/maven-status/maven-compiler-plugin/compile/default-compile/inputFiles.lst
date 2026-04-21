@@ -10,6 +10,7 @@ D:\spring-boot-grid07\src\main\java\com\grid07\api\service\LikeService.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\dto\LikeRequestDTO.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\entity\User.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\Grid07ApiApplication.java
+D:\spring-boot-grid07\src\main\java\com\grid07\api\service\GuardrailService.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\service\ViralityService.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\repository\PostLikeRepository.java
 D:\spring-boot-grid07\src\main\java\com\grid07\api\dto\CreatePostResponseDTO.java
