@@ -15,12 +15,14 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ViralityService viralityService;
     private final GuardrailService guardrailService;
+    private final NotificationService notificationService;
 
-    public CommentService(PostRepository postRepository, CommentRepository commentRepository, ViralityService viralityService, GuardrailService guardrailService) {
+    public CommentService(PostRepository postRepository, CommentRepository commentRepository, ViralityService viralityService, GuardrailService guardrailService, NotificationService notificationService) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.viralityService = viralityService;
         this.guardrailService = guardrailService;
+        this.notificationService = notificationService;
     }
 
     public CommentResponseDTO addComment(Long postId, CommentRequestDTO dto) {
@@ -46,6 +48,11 @@ public class CommentService {
             if (!guardrailService.checkCooldown(botId, userId)) {
                 throw new RuntimeException("Cooldown active (429)");
             }
+
+            notificationService.handleNotification(
+                    post.getAuthorId(),
+                    "Bot " + dto.getAuthorId() + " replied to your post"
+            );
         }
 
 

@@ -9,6 +9,7 @@ import com.grid07.api.repository.PostRepository;
 import com.grid07.api.service.CommentService;
 import com.grid07.api.service.LikeService;
 import com.grid07.api.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<CreatePostResponseDTO> createPost(@RequestBody  CreatePostRequestDTO dto){
+    public ResponseEntity<CreatePostResponseDTO> createPost( @Valid @RequestBody  CreatePostRequestDTO dto){
         return  ResponseEntity.ok(postService.createPost(dto));
     }
 
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<?> addComment(
+    public ResponseEntity<?> addComment( @Valid
             @PathVariable Long postId,
             @RequestBody CommentRequestDTO dto) {
 
@@ -47,7 +48,7 @@ public class PostController {
     }
 
     @PostMapping("/{postId}/like")
-    public  ResponseEntity<LikeResponseDTO> likePost(@PathVariable Long postId,
+    public  ResponseEntity<LikeResponseDTO> likePost(@Valid @PathVariable Long postId,
                                                      @RequestBody LikeRequestDTO dto) {
         return ResponseEntity.ok(
                 likeService.likePost(postId,dto.getUserId())

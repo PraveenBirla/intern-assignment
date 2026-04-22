@@ -8,10 +8,12 @@ com\grid07\api\repository\UserRepository.class
 com\grid07\api\service\ViralityService.class
 com\grid07\api\controller\PostController.class
 com\grid07\api\dto\LikeResponseDTO$LikeResponseDTOBuilder.class
+com\grid07\api\components\NotificationScheduler.class
 com\grid07\api\dto\CommentResponseDTO.class
 com\grid07\api\service\PostService.class
 com\grid07\api\Grid07ApiApplication.class
 com\grid07\api\dto\LikeResponseDTO.class
+com\grid07\api\service\NotificationService.class
 com\grid07\api\dto\CommentRequestDTO.class
 com\grid07\api\entity\User$UserBuilder.class
 com\grid07\api\dto\CreatePostResponseDTO.class
